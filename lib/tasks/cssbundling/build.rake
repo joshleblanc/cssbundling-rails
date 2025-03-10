@@ -51,12 +51,8 @@ module Cssbundling
     private
 
     def tool_exists?(tool)
-      # MakeMakefile.find_executable(path)
-      extensions = RbConfig::CONFIG["EXECUTABLE_EXTS"]&.split
-      extensions = [RbConfig::CONFIG["EXEEXT"]] unless extensions&.any?
-      candidates = extensions.map {|ext| "#{tool}#{ext}" }
-
-      candidates.find {|candidate| File.file?(candidate) && File.executable?(candidate) }
+      require "mkmf"
+      MakeMakefile.find_executable(tool)
     end
 
     def using_tool?(tool)
