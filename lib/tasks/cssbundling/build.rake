@@ -51,7 +51,8 @@ module Cssbundling
     private
 
     def tool_exists?(tool)
-      system "command -v #{tool} > /dev/null"
+      require "mkmf"
+      MakeMakefile.find_executable(tool.to_s)
     end
 
     def using_tool?(tool)
